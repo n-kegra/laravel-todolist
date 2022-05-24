@@ -24620,7 +24620,7 @@ __webpack_require__.r(__webpack_exports__);
   name: 'TodoList',
   props: {
     todos: {
-      id: String,
+      uuid: String,
       title: String,
       deadline: String
     }

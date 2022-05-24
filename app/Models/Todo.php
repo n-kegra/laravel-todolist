@@ -9,6 +9,10 @@ class Todo extends Model
 {
     use HasFactory;
 
+    protected $hidden = [
+        'id',
+    ];
+
     protected $fillable = [
         'uuid',
         'title',

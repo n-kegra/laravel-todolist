@@ -9,7 +9,7 @@ import { reactive } from "vue";
 
 defineProps({
     todos: {
-        id: String,
+        uuid: String,
         title: String,
         deadline: String,
     },
