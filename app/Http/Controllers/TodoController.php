@@ -20,7 +20,7 @@ class TodoController extends Controller
     public function index()
     {
         return Inertia::render('TodoList', [
-            'todos' => Auth::user()->todos(),
+            'todos' => Auth::user()->todos,
         ]);
     }
 
