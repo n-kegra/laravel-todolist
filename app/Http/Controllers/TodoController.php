@@ -80,6 +80,7 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+        return Redirect::route('todos.index');
     }
 }

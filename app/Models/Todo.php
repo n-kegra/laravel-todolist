@@ -18,4 +18,9 @@ class Todo extends Model
         'title',
         'deadline',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'uuid';
+    }
 }

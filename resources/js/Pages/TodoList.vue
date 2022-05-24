@@ -13,7 +13,7 @@ defineProps({
         title: String,
         deadline: String,
     },
-})
+});
 
 const form = useForm({
     title: "",
@@ -23,6 +23,11 @@ const form = useForm({
 const add_todo = () => {
     form.post(route("todos.store"));
 };
+
+const done_todo = ($uuid) => {
+    useForm({}).delete(route('todos.destroy', $uuid));
+}
+
 </script>
 
 <template>
@@ -38,7 +43,10 @@ const add_todo = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <form class="p-6 bg-white border-b border-gray-200" @submit.prevent="add_todo">
+                    <form
+                        class="p-6 bg-white border-b border-gray-200"
+                        @submit.prevent="add_todo"
+                    >
                         <div>
                             <BreezeLabel for="todo" value="Todo:" />
                             <BreezeInput
@@ -67,15 +75,32 @@ const add_todo = () => {
                                 :message="form.errors.deadline"
                             />
                         </div>
-                        <BreezeButton class="mt-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Add</BreezeButton>
+                        <BreezeButton
+                            class="mt-2"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                            >Add</BreezeButton
+                        >
                     </form>
                     <div class="p-6 bg-white border-b border-gray-200">
-                        <ul>
-                            <li v-for="todo in todos" :key="todo.id">
-                                {{ todo.title }}
-                                <BreezeButton>Done</BreezeButton>
-                            </li>
-                        </ul>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>title</th>
+                                    <th>deadline</th>
+                                    <th>action</th>
+                                </tr>
+                                <tr v-for="todo in todos" :key="todo.uuid">
+                                    <td class="p-2">{{ todo.title }}</td>
+                                    <td class="p-2">{{ todo.deadline }}</td>
+                                    <td class="p-2">
+                                        <form @submit.prevent="done_todo(todo.uuid)">
+                                            <BreezeButton>Done</BreezeButton>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
