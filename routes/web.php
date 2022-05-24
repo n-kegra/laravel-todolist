@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,5 +32,11 @@ Route::get('/dashboard', function () {
 Route::get('/todolist', function () {
     return Inertia::render('TodoList');
 })->middleware(['auth', 'verified'])->name('todolist');
+
+Route::prefix('/api')->group(function () {
+    Route::apiResources([
+        'todos' => TodoController::class,
+    ]);
+});
 
 require __DIR__.'/auth.php';
