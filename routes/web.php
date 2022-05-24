@@ -29,14 +29,6 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/todolist', function () {
-    return Inertia::render('TodoList');
-})->middleware(['auth', 'verified'])->name('todolist');
-
-Route::prefix('/api')->group(function () {
-    Route::apiResources([
-        'todos' => TodoController::class,
-    ]);
-});
+Route::middleware(['auth', 'verified'])->resource('todos', TodoController::class);
 
 require __DIR__.'/auth.php';

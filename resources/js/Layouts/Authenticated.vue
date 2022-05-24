@@ -30,7 +30,7 @@ const showingNavigationDropdown = ref(false);
                                 <BreezeNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </BreezeNavLink>
-                                <BreezeNavLink :href="route('todolist')" :active="route().current('todolist')">
+                                <BreezeNavLink :href="route('todos.index')" :active="route().current('todos.index')">
                                     TodoList
                                 </BreezeNavLink>
                             </div>
@@ -79,7 +79,7 @@ const showingNavigationDropdown = ref(false);
                         <BreezeResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </BreezeResponsiveNavLink>
-                        <BreezeResponsiveNavLink :href="route('todolist')" :active="route().current('todolist')">
+                        <BreezeResponsiveNavLink :href="route('todos.index')" :active="route().current('todos.index')">
                             TodoList
                         </BreezeResponsiveNavLink>
                     </div>

@@ -7,22 +7,21 @@ import BreezeButton from "@/Components/Button.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 import { reactive } from "vue";
 
+defineProps({
+    todos: {
+        id: String,
+        title: String,
+        deadline: String,
+    },
+})
+
 const form = useForm({
-    todo_title: "",
+    title: "",
     deadline: "",
 });
 
-const todos = reactive([]);
-
 const add_todo = () => {
-    form.post(route("api-addtodo"), {
-        onSuccess: () => {
-            // todos.push({
-            //     id: ,
-            //     title: ,
-            // });
-        },
-    });
+    form.post(route("todos.store"));
 };
 </script>
 
@@ -39,19 +38,19 @@ const add_todo = () => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
+                    <form class="p-6 bg-white border-b border-gray-200" @submit.prevent="add_todo">
                         <div>
                             <BreezeLabel for="todo" value="Todo:" />
                             <BreezeInput
                                 id="todo"
                                 type="text"
                                 class="mt-1 block w-80"
-                                v-model="form.todo_title"
+                                v-model="form.title"
                                 required
                             />
                             <BreezeInputError
                                 class="mt-1 block w-80"
-                                :message="form.errors.todo_title"
+                                :message="form.errors.title"
                             />
                         </div>
                         <div>
@@ -68,10 +67,8 @@ const add_todo = () => {
                                 :message="form.errors.deadline"
                             />
                         </div>
-                        <BreezeButton class="mt-1" @click="add_todo"
-                            >Add</BreezeButton
-                        >
-                    </div>
+                        <BreezeButton class="mt-2" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Add</BreezeButton>
+                    </form>
                     <div class="p-6 bg-white border-b border-gray-200">
                         <ul>
                             <li v-for="todo in todos" :key="todo.id">
